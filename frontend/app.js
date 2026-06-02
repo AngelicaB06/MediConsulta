@@ -164,7 +164,7 @@ async function buscarMedicamento() {
     try {
 
         const respuesta = await fetch(
-            `http://localhost:3000/medicamento/${nombre}`
+            `https://mediconsulta.onrender.com/medicamento/${nombre}`
         );
 
         const data = await respuesta.json();
@@ -228,7 +228,7 @@ async function buscarMedicamento() {
         document.getElementById("resultado").innerHTML = `
             <h3 class="error-mensaje">
                 <i class="fas fa-server"></i> Error al consultar el medicamento
-                <br><small>¿El servidor backend está corriendo en http://localhost:3000?</small>
+                <br><small>¿El servidor backend está corriendo en https://mediconsulta.onrender.com?</small>
             </h3>
         `;
         
