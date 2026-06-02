@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
-// Diccionario Español -> Inglés
+// Español -> Inglés
 const traducciones = {
     "ibuprofeno": "ibuprofen",
     "paracetamol": "acetaminophen",
@@ -28,21 +28,63 @@ const traducciones = {
     "metformina": "metformin",
     "losartan": "losartan",
     "losartán": "losartan",
-    "cetirizina": "cetirizine"
+    "cetirizina": "cetirizine",
+    "enalapril": "enalapril"
 };
 
-// Función para traducir
+// Traducción segura
 async function traducir(texto) {
+
     if (!texto || texto === "No disponible") {
         return "No disponible";
     }
 
     try {
-        return await translate(texto, { to: "es" });
-    } catch (error) {
-        console.log("Error al traducir:", error.message);
+
+        // Traducción normal
+        if (texto.length < 2500) {
+            return await translate(texto, { to: "es" });
+        }
+
+        // Traducción por bloques
+        let resultado = "";
+
+        for (let i = 0; i < texto.length; i += 2000) {
+
+            const bloque = texto.substring(i, i + 2000);
+
+            try {
+
+                const traducido =
+                    await translate(bloque, { to: "es" });
+
+                resultado += traducido + " ";
+
+            } catch {
+
+                resultado += bloque + " ";
+            }
+        }
+
+        return resultado;
+
+    } catch {
+
         return texto;
     }
+}
+
+// Resumir advertencias
+function resumirAdvertencias(texto) {
+
+    if (!texto || texto === "No disponible") {
+        return texto;
+    }
+
+    const frases =
+        texto.split(".").filter(f => f.trim() !== "");
+
+    return frases.slice(0, 8).join(". ") + ".";
 }
 
 app.get("/medicamento/:nombre", async (req, res) => {
@@ -79,12 +121,13 @@ app.get("/medicamento/:nombre", async (req, res) => {
 
             advertencias:
                 med.warnings?.[0] ||
+                med.boxed_warning?.[0] ||
                 "No disponible",
 
             interacciones: []
         };
 
-        // Traducir información
+        // Traducciones
         medicamento.marca =
             await traducir(medicamento.marca);
 
@@ -92,9 +135,13 @@ app.get("/medicamento/:nombre", async (req, res) => {
             await traducir(medicamento.indicaciones);
 
         medicamento.advertencias =
-            await traducir(medicamento.advertencias);
+            await traducir(
+                resumirAdvertencias(
+                    medicamento.advertencias
+                )
+            );
 
-        // Buscar interacciones en RxNav
+        // RxNav
         try {
 
             const rxcuiResp = await axios.get(
@@ -120,24 +167,35 @@ app.get("/medicamento/:nombre", async (req, res) => {
                         for (const par of tipo.interactionPair || []) {
 
                             let descripcion =
-                                await traducir(par.description);
+                                await traducir(
+                                    par.description
+                                );
 
                             medicamento.interacciones.push(
                                 descripcion
                             );
+
+                            // Máximo 10
+                            if (
+                                medicamento.interacciones.length >= 10
+                            ) {
+                                break;
+                            }
                         }
                     }
                 }
             }
 
-        } catch (error) {
+        } catch {
 
             console.log(
-                "No se pudieron obtener interacciones."
+                "No se encontraron interacciones."
             );
         }
 
-        if (medicamento.interacciones.length === 0) {
+        if (
+            medicamento.interacciones.length === 0
+        ) {
 
             medicamento.interacciones.push(
                 "No se encontraron interacciones registradas."
@@ -157,9 +215,11 @@ app.get("/medicamento/:nombre", async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+    process.env.PORT || 3000;
 
 app.listen(PORT, () => {
+
     console.log(
         `Servidor ejecutándose en puerto ${PORT}`
     );
