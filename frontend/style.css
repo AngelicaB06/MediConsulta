@@ -1,0 +1,464 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(145deg, #e2eef9 0%, #cbdbe9 100%);
+    font-family: 'Inter', sans-serif;
+    padding: 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor principal */
+.contenedor {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 2rem;
+    box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.3), 0 5px 12px rgba(0, 0, 0, 0.05);
+    padding: 2rem 2rem 2.2rem;
+    transition: all 0.2s;
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.header-icono {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.header-icono i {
+    font-size: 2.5rem;
+    color: #1f6392;
+    background: #eef4ff;
+    padding: 12px;
+    border-radius: 60px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(120deg, #1e3c72, #2a5f9e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+h1 i {
+    background: none;
+    color: #2a5f9e;
+    font-size: 1.9rem;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #4b5565;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #e2edf7;
+    display: inline-block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 6px;
+}
+
+/* Grupo de búsqueda */
+.busqueda-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 16px;
+    color: #7c8ea0;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+#medicamento {
+    width: 100%;
+    padding: 14px 18px 14px 46px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    border: 1.5px solid #e0e8f0;
+    border-radius: 60px;
+    background: #ffffff;
+    transition: all 0.25s;
+    outline: none;
+    font-weight: 500;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+#medicamento:focus {
+    border-color: #2c7da0;
+    box-shadow: 0 0 0 4px rgba(44, 125, 160, 0.15);
+}
+
+button {
+    background: linear-gradient(95deg, #236bf0, #1b4d8f);
+    border: none;
+    padding: 0 1.8rem;
+    height: 52px;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s;
+    box-shadow: 0 8px 18px rgba(27, 77, 143, 0.25);
+    letter-spacing: 0.3px;
+}
+
+button i {
+    font-size: 1.1rem;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(95deg, #2f7cf0, #1f4590);
+    box-shadow: 0 14px 24px rgba(27, 77, 143, 0.35);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Tarjeta de resultado */
+.resultado-card {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 1.5rem;
+    transition: all 0.2s;
+}
+
+/* ============================================ */
+/* ESTILOS PARA RESULTADOS (desde JS) */
+/* ============================================ */
+
+.resultado-card-interno {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#resultado h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3c72;
+    margin-bottom: 1rem;
+    border-left: 6px solid #2c7da0;
+    padding-left: 1rem;
+}
+
+#resultado h2 i {
+    color: #2c7da0;
+    font-size: 1.8rem;
+}
+
+#resultado p {
+    margin: 0.8rem 0;
+    line-height: 1.5;
+    color: #2d3e50;
+}
+
+#resultado b {
+    color: #1f5e7e;
+}
+
+#resultado h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+    color: #1e4a6b;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.info-marca {
+    background: #eef4ff;
+    padding: 10px 15px;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    color: #1f4870;
+    font-size: 0.95rem;
+}
+
+.seccion {
+    margin-bottom: 1.5rem;
+}
+
+.seccion-titulo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1f4870;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #e2edf7;
+}
+
+.seccion-titulo i {
+    color: #2c7da0;
+}
+
+.seccion-contenido {
+    color: #2d3e50;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    background: #fafcff;
+    padding: 12px 16px;
+    border-radius: 12px;
+}
+
+/* ============================================ */
+/* ESTILOS PARA LISTA DE SÍNTOMAS (con viñetas) */
+/* ============================================ */
+
+.lista-sintomas {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 10px 20px;
+}
+
+.lista-sintomas li {
+    margin: 6px 0;
+    padding: 5px 0 5px 20px;
+    font-size: 0.95rem;
+    color: #1f4870;
+    position: relative;
+}
+
+.lista-sintomas li::before {
+    content: "•";
+    color: #2c7da0;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: absolute;
+    left: 0;
+    top: 4px;
+}
+
+/* ============================================ */
+/* ESTILOS PARA INTERACCIONES (sin viñetas) */
+/* ============================================ */
+
+.lista-interacciones {
+    list-style: none;
+    padding-left: 0;
+    margin: 8px 0;
+}
+
+.lista-interacciones li {
+    background: #fff8f0;
+    margin: 8px 0;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #5a3e1b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lista-interacciones li i {
+    color: #e67e22;
+}
+
+/* ============================================ */
+/* PÁRRAFOS SEPARADOS (para advertencias) */
+/* ============================================ */
+
+.parrafo-separado {
+    margin-bottom: 12px;
+    line-height: 1.5;
+    color: #2d3e50;
+}
+
+/* ============================================ */
+/* LOADING SPINNER */
+/* ============================================ */
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 2rem;
+    color: #1f6392;
+    font-weight: 500;
+}
+
+.loading-spinner i {
+    font-size: 1.8rem;
+    animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================ */
+/* MENSAJES DE ERROR */
+/* ============================================ */
+
+.error-mensaje {
+    background: #fff5f5;
+    border-left: 5px solid #e53e3e;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    color: #c53030;
+    text-align: center;
+}
+
+.error-mensaje small {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #7a4a4a;
+}
+
+/* Mensaje de información (cuando no hay resultados) */
+#resultado h3:only-child {
+    background: #fff5e6;
+    padding: 1rem;
+    border-radius: 1rem;
+    color: #b35f00;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* ============================================ */
+/* BOTÓN PDF */
+/* ============================================ */
+
+.pdf-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.8rem;
+}
+
+#btnPDF {
+    background: linear-gradient(95deg, #2c7a47, #1f5e38);
+    box-shadow: 0 8px 18px rgba(31, 94, 56, 0.25);
+    justify-content: center;
+    width: auto;
+    min-width: 220px;
+}
+
+#btnPDF:hover {
+    background: linear-gradient(95deg, #349e5a, #267a46);
+}
+
+
+/* ============================================ */
+/* RESPONSIVE */
+/* ============================================ */
+
+@media (max-width: 600px) {
+    .contenedor {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    #resultado h2 {
+        font-size: 1.4rem;
+    }
+
+    button {
+        padding: 0 1.2rem;
+        height: 48px;
+    }
+
+    .seccion-titulo {
+        font-size: 1rem;
+    }
+
+    .seccion-contenido {
+        font-size: 0.85rem;
+        padding: 10px 12px;
+    }
+
+    .info-marca {
+        font-size: 0.85rem;
+    }
+
+    .lista-interacciones li {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .lista-sintomas {
+        margin-left: 10px;
+    }
+    
+    .lista-sintomas li {
+        font-size: 0.85rem;
+    }
+}
+
+/* Ajustes para tablets */
+@media (min-width: 601px) and (max-width: 900px) {
+    .contenedor {
+        max-width: 95%;
+        padding: 1.8rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    #resultado h2 {
+        font-size: 1.6rem;
+    }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Consulta de Medicamentos | Folleto Digital</title>
+    <!-- Fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <div class="header-icono">
+            <i class="fas fa-prescription-bottle-medical"></i>
+        </div>
+        <h1>
+            <i class="fas fa-capsules"></i> 
+            MediConsulta
+        </h1>
+        <p class="subtitulo">
+            Información profesional de medicamentos
+        </p>
+
+        <div class="busqueda-group">
+            <div class="input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="medicamento" placeholder="Ejemplo: Ibuprofeno, Paracetamol, Amoxicilina...">
+            </div>
+            <button id="btnBuscar" onclick="buscarMedicamento()">
+                <i class="fas fa-prescription-bottle"></i> Buscar
+            </button>
+        </div>
+
+        <!-- Área de resultado -->
+        <div id="resultado" class="resultado-card"></div>
+
+        <!-- Botón PDF -->
+        <div class="pdf-container">
+            <button id="btnPDF" onclick="generarPDF()" style="display: none;">
+                <i class="fas fa-file-pdf"></i> Descargar Folleto PDF
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
